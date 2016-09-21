@@ -63,6 +63,11 @@ class @ac_windows_dllexport@ TemplateDictionaryInterface {
   // TemplateDictionaryInterface destructor
   virtual ~TemplateDictionaryInterface() {}
 
+  // rp - protected to public
+  // GetSectionValue
+  //   Returns the value of a variable.
+  virtual TemplateString GetValue(const TemplateString& variable) const = 0;
+
  protected:
   // The interface as follows is used at expand-time by Expand.
   friend class VariableTemplateNode;
@@ -72,9 +77,6 @@ class @ac_windows_dllexport@ TemplateDictionaryInterface {
   friend class TemplateDictionaryPeer;
   friend class TemplateDictionaryPeerIterator;
 
-  // GetSectionValue
-  //   Returns the value of a variable.
-  virtual TemplateString GetValue(const TemplateString& variable) const = 0;
 
   // IsHiddenSection
   //   A predicate to indicate the current hidden/visible state of a section

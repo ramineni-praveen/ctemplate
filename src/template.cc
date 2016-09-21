@@ -1820,10 +1820,11 @@ bool SectionTemplateNode::AddSubnode(Template *my_template) {
 // A valid marker name is made up of alphanumerics and underscores...
 // nothing else.
 static bool IsValidName(const char* name, int namelen) {
-  for (const char *cur_char = name; cur_char - name <  namelen; ++cur_char) {
+    // rp - commenting it out for my own purpose. Now always returns true.
+    /*for (const char *cur_char = name; cur_char - name <  namelen; ++cur_char) {
     if (!ascii_isalnum(*cur_char) && *cur_char != '_')
       return false;
-  }
+  }*/
   return true;
 }
 

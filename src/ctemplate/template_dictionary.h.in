@@ -88,6 +88,14 @@ class @ac_windows_dllexport@ TemplateDictionary : public TemplateDictionaryInter
     return std::string(name_.data(), name_.size());
   }
 
+  std::string short_name() const {
+    return std::string(short_name_.data(), short_name_.size());
+  }
+
+  void setShortName(const char* short_name) {
+    short_name_ = short_name;
+  }
+
   // Returns a recursive copy of this dictionary.  This dictionary
   // *must* be a "top-level" dictionary (that is, not created via
   // AddSectionDictionary() or AddIncludeDictionary()).  Caller owns
@@ -207,6 +215,9 @@ class @ac_windows_dllexport@ TemplateDictionary : public TemplateDictionaryInter
   // to include.  But feel free to call this on any dictionary, to
   // document what template-file the dictionary is intended to go with.
   void SetFilename(const TemplateString filename);
+
+  // rp - Made it public for our own purpose
+  virtual TemplateString GetValue(const TemplateString& variable) const;
 
   // --- DEBUGGING TOOLS
 
@@ -343,7 +354,9 @@ class @ac_windows_dllexport@ TemplateDictionary : public TemplateDictionaryInter
 
   // How Template::Expand() and its children access the template-dictionary.
   // These fill the API required by TemplateDictionaryInterface.
-  virtual TemplateString GetValue(const TemplateString& variable) const;
+  // rp - commented and made it public (above)
+  // virtual TemplateString GetValue(const TemplateString& variable) const;
+
   virtual bool IsHiddenSection(const TemplateString& name) const;
   virtual bool IsUnhiddenSection(const TemplateString& name) const {
     return !IsHiddenSection(name);
@@ -413,6 +426,8 @@ class @ac_windows_dllexport@ TemplateDictionary : public TemplateDictionaryInter
   class UnsafeArena* const arena_;
   bool should_delete_arena_;   // only true if we 'new arena' in constructor
   TemplateString name_;        // points into the arena, or to static memory
+  // rp - to hold section name
+  TemplateString short_name_;  // holds only the section name.
 
   // The three dictionaries that I own -- for vars, sections, and template-incs
   VariableDict* variable_dict_;

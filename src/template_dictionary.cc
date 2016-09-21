@@ -227,7 +227,8 @@ TemplateDictionary::TemplateDictionary(const TemplateString& name,
       template_global_dict_(NULL),
       template_global_dict_owner_(this),
       parent_dict_(NULL),
-      filename_(NULL) {
+      filename_(NULL),
+      short_name_(NULL) {
   GoogleOnceInit(&g_once, &SetupGlobalDict);
 }
 
@@ -244,7 +245,8 @@ TemplateDictionary::TemplateDictionary(
       template_global_dict_(NULL),
       template_global_dict_owner_(template_global_dict_owner),
       parent_dict_(parent_dict),
-      filename_(NULL) {
+      filename_(NULL),
+      short_name_(NULL) {
   assert(template_global_dict_owner_ != NULL);
   GoogleOnceInit(&g_once, &SetupGlobalDict);
 }
@@ -575,6 +577,8 @@ TemplateDictionary* TemplateDictionary::AddSectionDictionary(
                                          dicts->size() + 1, ""));
   TemplateDictionary* retval = CreateTemplateSubdict(
       newname, arena_, this, template_global_dict_owner_);
+  // rp : added but commented
+  //retval->setShortName(section_name.data());
   dicts->push_back(retval);
   return retval;
 }
